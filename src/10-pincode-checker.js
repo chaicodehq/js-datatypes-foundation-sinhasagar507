@@ -57,22 +57,37 @@
  *   isValidParcelWeight(2.5)     // => true
  *   isTruthy("")                 // => false
  */
+/**
+ * 📦 Pincode Type Checker - Implementation
+ */
+
 export function getDataType(value) {
-  // Your code here
+  // Handle the famous null bug
+  if (value === null) return "null";
+  
+  // Handle arrays specifically
+  if (Array.isArray(value)) return "array";
+  
+  // Return standard typeof for everything else
+  return typeof value;
 }
 
 export function isValidParcelWeight(weight) {
-  // Your code here
+  // Must be a number (not NaN/Infinity) AND strictly positive
+  return Number.isFinite(weight) && weight > 0;
 }
 
 export function isWholeNumber(value) {
-  // Your code here
+  // Number.isInteger checks if it's a number and has no decimal part
+  return Number.isInteger(value);
 }
 
 export function isNotANumber(value) {
-  // Your code here
+  // Specifically checks if value is the actual NaN constant
+  return Number.isNaN(value);
 }
 
 export function isTruthy(value) {
-  // Your code here
+  // Force conversion to boolean to see if it's truthy
+  return Boolean(value);
 }

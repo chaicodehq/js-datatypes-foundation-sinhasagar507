@@ -47,22 +47,59 @@
  *   addUrgentItem(["pyaaz"], "dhaniya")              // => ["dhaniya", "pyaaz"]
  *   removeLastItem(["tamatar", "pyaaz", "mirchi"])   // => "mirchi"
  */
+/**
+ * 🥬 Sabzi Mandi Shopping Cart - Implementation
+ */
+
 export function addToCart(cart, item) {
-  // Your code here
+  // Check if cart is an array
+  if (!Array.isArray(cart)) return -1;
+
+  // Validate: item must be a non-empty string
+  if (typeof item !== 'string' || item === "") {
+    return cart.length;
+  }
+
+  // .push() adds to the end and returns the new length
+  return cart.push(item);
 }
 
 export function addUrgentItem(cart, item) {
-  // Your code here
+  // If cart is not an array, return empty array
+  if (!Array.isArray(cart)) return [];
+
+  // If item is not a valid string, return cart unchanged
+  if (typeof item !== 'string' || item === "") {
+    return cart;
+  }
+
+  // .unshift() adds to the beginning (sabse upar!)
+  cart.unshift(item);
+  return cart;
 }
 
 export function removeLastItem(cart) {
-  // Your code here
+  // Basic check for array and emptiness
+  if (!Array.isArray(cart) || cart.length === 0) {
+    return undefined;
+  }
+
+  // .pop() removes and returns the last element
+  return cart.pop();
 }
 
 export function isInCart(cart, item) {
-  // Your code here
+  if (!Array.isArray(cart)) return false;
+
+  // .includes() returns a boolean
+  return cart.includes(item);
 }
 
 export function mergeCarts(cart1, cart2) {
-  // Your code here
+  // If not array, consider it an empty list
+  const first = Array.isArray(cart1) ? cart1 : [];
+  const second = Array.isArray(cart2) ? cart2 : [];
+
+  // .concat() joins two arrays and returns a NEW array
+  return first.concat(second);
 }

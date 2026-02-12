@@ -1,68 +1,41 @@
 /**
- * 🚂 Train Coach Finder - Array Search & Check
- *
- * Indian Railways ke train mein passengers dhundhne hain!
- * Passenger list mein search karna hai — kaun hai, kaun nahi,
- * sab confirmed hain ya nahi. Array search methods ka tour hai yeh!
- *
- * Data format: passengers = [
- *   { name: "Rahul", coach: "S5", seat: 42, status: "confirmed" },
- *   { name: "Priya", coach: "S3", seat: 15, status: "waitlisted" },
- *   ...
- * ]
- *
- * Methods to explore: .find(), .findIndex(), .some(), .every(), .filter()
- *
- * Functions:
- *
- *   1. findPassenger(passengers, name)
- *      - .find() se passenger object dhundho by name (case-insensitive)
- *      - Agar passengers array nahi hai ya name string nahi hai, return undefined
- *      - Example: findPassenger([{name:"Rahul",coach:"S5",seat:42,status:"confirmed"}], "rahul")
- *                 => {name:"Rahul", coach:"S5", seat:42, status:"confirmed"}
- *
- *   2. getPassengerIndex(passengers, name)
- *      - .findIndex() se passenger ka position nikalo (case-insensitive)
- *      - Agar passengers array nahi hai ya name string nahi hai, return -1
- *      - Example: getPassengerIndex([{name:"Rahul"}, {name:"Priya"}], "Priya") => 1
- *
- *   3. isAnyWaitlisted(passengers)
- *      - .some() se check karo ki koi bhi passenger "waitlisted" hai ya nahi
- *      - Agar passengers array nahi hai ya empty hai, return false
- *      - Example: isAnyWaitlisted([{status:"confirmed"}, {status:"waitlisted"}]) => true
- *
- *   4. areAllConfirmed(passengers)
- *      - .every() se check karo ki SAB passengers "confirmed" hain ya nahi
- *      - Agar passengers array nahi hai ya empty hai, return false
- *      - Example: areAllConfirmed([{status:"confirmed"}, {status:"confirmed"}]) => true
- *
- *   5. getWaitlistedPassengers(passengers)
- *      - .filter() se sirf "waitlisted" passengers return karo
- *      - Agar passengers array nahi hai, return []
- *      - Example: getWaitlistedPassengers([{name:"A",status:"confirmed"},{name:"B",status:"waitlisted"}])
- *                 => [{name:"B", status:"waitlisted"}]
- *
- * @example
- *   findPassenger(passengers, "Rahul")   // => { name: "Rahul", ... }
- *   isAnyWaitlisted(passengers)          // => true/false
- *   areAllConfirmed(passengers)          // => true/false
+ * 🚂 Train Coach Finder - Implementation
  */
+
 export function findPassenger(passengers, name) {
-  // Your code here
+  // Validation: Must be array and name must be a string
+  if (!Array.isArray(passengers) || typeof name !== 'string') return undefined;
+
+  // .find() returns the first object that matches the condition
+  return passengers.find(p => p.name.toLowerCase() === name.toLowerCase());
 }
 
 export function getPassengerIndex(passengers, name) {
-  // Your code here
+  if (!Array.isArray(passengers) || typeof name !== 'string') return -1;
+
+  // .findIndex() returns the position (0-based index) or -1 if not found
+  return passengers.findIndex(p => p.name.toLowerCase() === name.toLowerCase());
 }
 
 export function isAnyWaitlisted(passengers) {
-  // Your code here
+  // If not array or empty, return false
+  if (!Array.isArray(passengers) || passengers.length === 0) return false;
+
+  // .some() returns true if AT LEAST ONE element meets the condition
+  return passengers.some(p => p.status === "waitlisted");
 }
 
 export function areAllConfirmed(passengers) {
-  // Your code here
+  // If not array or empty, return false
+  if (!Array.isArray(passengers) || passengers.length === 0) return false;
+
+  // .every() returns true only if ALL elements meet the condition
+  return passengers.every(p => p.status === "confirmed");
 }
 
 export function getWaitlistedPassengers(passengers) {
-  // Your code here
+  if (!Array.isArray(passengers)) return [];
+
+  // .filter() returns a NEW array containing all elements that match
+  return passengers.filter(p => p.status === "waitlisted");
 }

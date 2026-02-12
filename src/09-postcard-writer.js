@@ -51,22 +51,57 @@
  *   isValidPincode("400001")   // => true
  *   countVowels("Namaste")     // => 3
  */
+/**
+ * 💌 Indian Postcard Writer - Implementation
+ */
+
 export function writePostcard(sender, receiver, message) {
-  // Your code here
+  // Validation: Check if all are non-empty strings
+  const isValid = (str) => typeof str === 'string' && str.trim() !== "";
+  
+  if (!isValid(sender) || !isValid(receiver) || !isValid(message)) {
+    return "";
+  }
+
+  // Template literal for multi-line formatting
+  return `Priy ${receiver.trim()},\n\n${message.trim()}\n\nAapka/Aapki,\n${sender.trim()}`;
 }
 
 export function isValidPincode(code) {
-  // Your code here
+  if (typeof code !== 'string') return false;
+
+  // Rules: 6 digits, doesn't start with "0", only numbers
+  const isSixDigits = code.length === 6;
+  const startsWithZero = code.startsWith("0");
+  const isAllDigits = /^\d+$/.test(code);
+
+  return isSixDigits && !startsWithZero && isAllDigits;
 }
 
-export function formatPostcardField(label, value, width) {
-  // Your code here
+export function formatPostcardField(label, value, width = 12) {
+  if (typeof label !== 'string' || typeof value !== 'string') {
+    return "";
+  }
+
+  // padEnd ensures the label takes up fixed space for perfect alignment
+  return `${label.padEnd(width)}: ${value}`;
 }
 
 export function isFromState(address, stateCode) {
-  // Your code here
+  if (typeof address !== 'string' || typeof stateCode !== 'string') {
+    return false;
+  }
+
+  // endsWith is perfect for checking state codes at the end of address
+  return address.endsWith(stateCode);
 }
 
 export function countVowels(message) {
-  // Your code here
+  if (typeof message !== 'string') return 0;
+
+  // Use match with global and ignoreCase flags
+  const matches = message.match(/[aeiou]/gi);
+  
+  // If no matches, match returns null, so we return 0
+  return matches ? matches.length : 0;
 }

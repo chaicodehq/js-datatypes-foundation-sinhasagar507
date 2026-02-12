@@ -50,22 +50,54 @@
  *   roundFare(152.567, 2)                  // => "152.57"
  *   findCheapestAndCostliest(150, 80, 200) // => { cheapest: 80, costliest: 200 }
  */
+/**
+ * 🛺 Auto Rickshaw Fare Calculator - Implementation
+ */
+
 export function parseFare(fareString) {
-  // Your code here
+  if (typeof fareString !== 'string') return -1;
+
+  const fare = parseFloat(fareString);
+  return isNaN(fare) ? -1 : fare;
 }
 
 export function roundFare(amount, decimalPlaces) {
-  // Your code here
+  // Validation: amount must be a number, decimalPlaces must be a non-negative integer
+  if (typeof amount !== 'number' || !Number.isInteger(decimalPlaces) || decimalPlaces < 0) {
+    return "";
+  }
+  // toFixed returns a string, which matches your requirement
+  return amount.toFixed(decimalPlaces);
 }
 
 export function calculateSurge(baseFare, surgeMultiplier) {
-  // Your code here
+  if (typeof baseFare !== 'number' || baseFare <= 0 || 
+      typeof surgeMultiplier !== 'number' || surgeMultiplier <= 0) {
+    return 0;
+  }
+
+  // Math.ceil always rounds up (Customer se 1 rupaiya bhi kam nahi lena!)
+  return Math.ceil(baseFare * surgeMultiplier);
 }
 
 export function findCheapestAndCostliest(...fares) {
-  // Your code here
+  // Filter out any inputs that aren't valid numbers
+  const validFares = fares.filter(f => typeof f === 'number' && !isNaN(f));
+
+  if (validFares.length === 0) return null;
+
+  return {
+    cheapest: Math.min(...validFares),
+    costliest: Math.max(...validFares)
+  };
 }
 
 export function getDistanceDifference(from, to) {
-  // Your code here
+  const start = parseInt(from, 10);
+  const end = parseInt(to, 10);
+
+  if (isNaN(start) || isNaN(end)) return -1;
+
+  // Math.abs handles the "return trip" or "wrong order" markers automatically
+  return Math.abs(start - end);
 }

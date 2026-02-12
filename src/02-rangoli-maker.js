@@ -47,20 +47,53 @@
  */
 export function repeatPattern(pattern, times) {
   // Your code here
+  if (typeof pattern !== "string" || !Number.isInteger(times) || times < 0) {
+    return "";
+  }
+  return pattern.repeat(times);
+
 }
 
 export function extractRangoliCenter(design, start, end) {
   // Your code here
+  if (typeof design !== "string" || typeof start !== "number" || typeof end !== "number") {
+    return "";
+  }
+  return design.slice(start, end);
 }
 
 export function splitAndJoinRangoli(colorString, oldSep, newSep) {
-  // Your code here
+  // 1. Validation: The rules say if colorString isn't a string, return ""
+  // Most tests also expect the separators to be strings!
+  if (typeof colorString !== "string" || typeof oldSep !== "string" || typeof newSep !== "string") {
+    return "";
+  }
+
+  // 2. The Logic: "Tod" (split) then "Jod" (join)
+  return colorString.split(oldSep).join(newSep);
 }
 
 export function replaceRangoliColor(design, oldColor, newColor) {
   // Your code here
+  // 1. "Agar koi bhi param string nahi hai, return '' "
+  if (
+    typeof design !== "string" || 
+    typeof oldColor !== "string" || 
+    typeof newColor !== "string"
+  ) {
+    return "";
+  }
+
+  // 2. Use replaceAll to catch EVERY instance of the old color
+  return design.replaceAll(oldColor, newColor);
+
 }
 
 export function makeRangoliBorder(char, length) {
   // Your code here
+  if (typeof char !== "string" || typeof length !== "number" || length < 0) {
+    return "";
+  }
+  // We repeat it enough times to ensure it covers the length, then slice the excess
+  return char.repeat(length).slice(0, length);
 }
